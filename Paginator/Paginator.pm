@@ -14,6 +14,7 @@ sub new {
 			item_name => 'result',
 			seperator => ' | ',
                         href_link => $ENV{REQUEST_URI} }};
+    bless $obj, ref $pkg || $pkg;
     $obj->_Prep_HTML_Text;
     if ($obj->{html}->{href_link} =~ /&page\=\d+&/) {
         $obj->{html}->{href_link} =~ s/&page\=\d+&/&/g;
@@ -41,7 +42,6 @@ sub new {
       and $obj->{num_per_page} > 0
        or return undef; # must have at least one item per page
     $obj->{book} = \@_;
-    bless $obj, ref $pkg || $pkg;
     $obj->_Ginsoo;
     return $obj;
 }
